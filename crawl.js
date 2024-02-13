@@ -23,12 +23,16 @@ function getURLsFromHTML(htmlBody, baseURL) {
 }
 
 async function crawlPage(baseURL, currentURL, pages) {
-    const objBaseUrl = new URL(baseURL);
-    const objCurrentUrl = new URL(currentURL);
-    if(objBaseUrl.hostname !== objCurrentUrl.hostname) {
-        return pages;
+    try {
+        const objBaseUrl = new URL(baseURL);
+        const objCurrentUrl = new URL(currentURL);
+        if(objBaseUrl.hostname !== objCurrentUrl.hostname) {
+            return pages;
+        }
+    } catch(err) {
+        return pages
     }
-
+    
     const normalizedCurrentURL = normalizeURL(currentURL);
     if(pages[normalizedCurrentURL]) {
         pages[normalizedCurrentURL]++;
